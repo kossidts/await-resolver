@@ -1,0 +1,33 @@
+{
+    "name": "await-resolver",
+    "version": "1.0.0",
+    "description": "Resolves anything",
+    "main": "index.js",
+    "exports": {
+        "import": "./wrapper.mjs",
+        "require": "./index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/kossidts/await-resolver.git"
+    },
+    "homepage": "https://github.com/kossidts/await-resolver#readme",
+    "bugs": {
+        "url": "https://github.com/kossidts/await-resolver/issues"
+    },
+    "keywords": [
+        "await resolver",
+        "await",
+        "resolver",
+        "async",
+        "promise",
+        "resolve",
+        "reject",
+        "error first",
+        "try",
+        "catch"
+    ],
+    "type": "commonjs",
+    "author": "Kossi D. T. Saka",
+    "license": "MIT"
+}
