@@ -1,7 +1,7 @@
 {
     "name": "await-resolver",
     "version": "1.0.0",
-    "description": "Resolves anything",
+    "description": "A promise resolver that never throws. It always resolves with an array of type [error, result]. It eliminates the need to try-catch.",
     "main": "index.js",
     "exports": {
         "import": "./wrapper.mjs",
