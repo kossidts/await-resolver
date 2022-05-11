@@ -29,5 +29,15 @@
     ],
     "type": "commonjs",
     "author": "Kossi D. T. Saka",
-    "license": "MIT"
+    "license": "MIT",
+    "devDependencies": {
+        "jest": "^28.1.0"
+    },
+    "jest": {
+        "testMatch": [
+            "**/test/**/*.test.js"
+        ],
+        "verbose": true,
+        "transform": {}
+    }
 }
