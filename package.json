@@ -1,7 +1,7 @@
 {
     "name": "await-resolver",
     "version": "1.0.0",
-    "description": "A promise resolver that never throws. It always resolves with an array of type [error, result]. It eliminates the need to try-catch.",
+    "description": "A simple to use (async await) wrapper to resolve functions, promises and more. It provides a timeout functionalitiy to delay/timeout execution and always returns an array of type [error, result] to ease error handling and eliminate the need to (try-)catch.",
     "main": "index.js",
     "exports": {
         "import": "./wrapper.mjs",

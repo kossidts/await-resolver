@@ -2,7 +2,27 @@
 
 [![License][license-image]][license-url] [![NPM Package Version][npm-image-version]][npm-url] ![GitHub top language][language-image] ![Size][size-image] ![Last Commit][commit-image]
 
-A promise resolver that never throws. It always resolves with an array of type `[error, result]` and eliminates the need to catch as well as the usage of a try-catch block.
+A simple to use (async await) wrapper to resolve functions, promises and more.
+
+It provides a timeout functionalitiy to delay/timeout execution.
+
+The resolver always returns an array of type `[error, result]` to ease error handling and eliminate the need to (try-)catch.
+
+Syntax:
+
+`await resolver(something)`
+
+`await resolver(something, timeout)`
+
+`await resolver(fn, timeout, fn_param1, fn_param2, ..., fn_paramN)`
+
+Or as a promise
+
+`resolver(something).then(([result, error]) => { ... })`
+
+`resolver(something, timeout).then(([result, error]) => { ... })`
+
+`resolver(fn, timeout, fn_param1, fn_param2, ..., fn_paramN).then(([result, error]) => { ... })`
 
 ## Installation
 
@@ -30,14 +50,32 @@ import resolver from "await-resolver";
 import { resolver } from "await-resolver";
 ```
 
-###### Await it in an async function (code block)
+#### Await the resolver inside an async function
 
 ```js
-let anything;
-let [error, result] = await resolver(anything);
+async () => {
+    let anything; // can be a function, a promise, an error, or any kind of value
+    let [error, result] = await resolver(anything);
+
+    // Use timeout to delay execution
+    let timeout = 1500; // ms just like setTimeout
+
+    // just sleep
+    await resolver(null, timeout);
+
+    // Resolve a function without arguments, with timeout
+    let [error, result] = await resolver(my_function, timeout);
+
+    // Resolve a function with arguments, without timeout
+    let multiply = (a, b) => a * b;
+    let [error, result] = await resolver(multiply, null, 4, 5); // => [null, 20]
+
+    // Resolve a function with arguments, with timeout
+    let [error, result] = await resolver(multiply, timeout, 4, 5); // => [null, 20] after timeout
+};
 ```
 
-###### Or use it in the resolve block
+#### Or use the resolver as a regular promise
 
 ```js
 resolver(anything).then(([error, result]) => {
@@ -46,6 +84,17 @@ resolver(anything).then(([error, result]) => {
     } else {
         // do something else
     }
+});
+
+// sleep
+resolver(null, timeout).then(([error, result]) => {
+    // do something
+});
+
+let multiply = (a, b) => a * b;
+
+resolver(multiply, timeout, 4, 5).then(([error, result]) => {
+    // do something
 });
 ```
 
