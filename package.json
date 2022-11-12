@@ -45,5 +45,9 @@
         ],
         "verbose": true,
         "transform": {}
-    }
+    },
+    "files": [
+        "index.js",
+        "wrapper.mjs"
+    ]
 }
