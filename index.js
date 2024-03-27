@@ -53,4 +53,6 @@ const resolver = (item, timeout, ...params) => {
     return promisedItem.then(result => [null, result]).catch(err => [err, null]);
 };
 
+resolver.sleep = ms => resolver(null, ms);
+
 module.exports = resolver;
