@@ -13,10 +13,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -   A static sleep function: `resolver.sleep(ms)`
 
-### Changed
-
-### Fixed
-
 ### Removed
 
 -   **Remove official support for Node version older than v18**: Although it might still work on some older node version, this package will no longer be tested with Node versions older than v18.
