@@ -59,6 +59,17 @@ describe.each([
         expect(result[1]).toBe(expected[1]);
         expect(elapse).toBeGreaterThanOrEqual(timeout);
     });
+
+    it(`Can sleep for ${timeout}ms`, async () => {
+        let start = process.hrtime.bigint();
+        const result = await resolver.sleep(timeout);
+        let elapse = process.hrtime.bigint() - start;
+        elapse = Math.ceil(Number(elapse) / 1e6);
+
+        expect(Array.isArray(result)).toBe(true);
+        expect(result.length).toBe(2);
+        expect(elapse).toBeGreaterThanOrEqual(timeout);
+    });
 });
 
 /**
