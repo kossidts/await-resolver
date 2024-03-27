@@ -2,11 +2,11 @@
 
 [![License][license-image]][license-url] [![NPM Package Version][npm-image-version]][npm-url] ![GitHub top language][language-image] ![Size][size-image] ![Last Commit][commit-image] ![Workflow CI][workflow-image]
 
-A simple to use (async await) wrapper to resolve functions, promises and more.
+An easy-to-use **async/await wrapper** to resolve functions, promises, and any asynchronous task.
 
-It provides a timeout functionalitiy to delay/timeout execution.
+**`await-resolver` always returns an array of type `[error, result]` ensuring consistent error handling across your code. You no longer have to use try/catch blocks or callbacks** if you don't want to.
 
-The resolver always returns an array of type `[error, result]` to ease error handling and eliminate the need to (try-)catch.
+Additionally `await-resolver` provides a **timeout functionality** to delay/timeout an execution. You can use it as a **sleep** function.
 
 Syntax:
 
@@ -16,6 +16,8 @@ Syntax:
 
 `await resolver(fn, timeout, fn_param1, fn_param2, ..., fn_paramN)`
 
+`await resolver.sleep(timeout)`
+
 Or as a promise
 
 `resolver(something).then(([result, error]) => { ... })`
@@ -24,10 +26,12 @@ Or as a promise
 
 `resolver(fn, timeout, fn_param1, fn_param2, ..., fn_paramN).then(([result, error]) => { ... })`
 
+`resolver.sleep(timeout).then(([result, error]) => { ... })`
+
 ## Installation
 
 ```bash
-$ npm i await-resolver
+$ npm install await-resolver
 ```
 
 ## Usage
@@ -50,29 +54,45 @@ import resolver from "await-resolver";
 import { resolver } from "await-resolver";
 ```
 
-#### Await the resolver inside an async function
+#### Await the resolver
 
 ```js
-async () => {
-    let anything; // can be a function, a promise, an error, or any kind of value
-    let [error, result] = await resolver(anything);
+// If you environment does not support top-level await,
+// wrap everything in an async function.
 
-    // Use timeout to delay execution
-    let timeout = 1500; // ms just like setTimeout
+// await-resolve a fetch result
+const fetchRequest = fetch(urlOrRequest[, options]);
 
-    // just sleep
-    await resolver(null, timeout);
+// in one go
+let [error, data] = await resolver(fetchRequest.then(res => res.json()));
 
-    // Resolve a function without arguments, with timeout
-    let [error, result] = await resolver(my_function, timeout);
+// or step by step
+let [responseError, response] = await resolver(fetchRequest);
+if(responseError){
+    // return early
+}
+let [dataError, data] = await resolver(response.json());
 
-    // Resolve a function with arguments, without timeout
-    let multiply = (a, b) => a * b;
-    let [error, result] = await resolver(multiply, null, 4, 5); // => [null, 20]
 
-    // Resolve a function with arguments, with timeout
-    let [error, result] = await resolver(multiply, timeout, 4, 5); // => [null, 20] after timeout
-};
+
+// await-resolve anything: a function, a promise, an error, or any kind of value
+let [error, result] = await resolver(anything);
+
+// Use timeout to delay execution
+let timeout = 1500; // ms just like setTimeout
+
+// just sleep
+await resolver(null, timeout);
+
+// Resolve a function without arguments, with timeout
+let [error, result] = await resolver(my_function, timeout);
+
+// Resolve a function with arguments, without timeout
+let multiply = (a, b) => a * b;
+let [error, result] = await resolver(multiply, null, 4, 5); // => [null, 20]
+
+// Resolve a function with arguments, with timeout
+let [error, result] = await resolver(multiply, timeout, 4, 5); // => [null, 20] after timeout
 ```
 
 #### Or use the resolver as a regular promise
