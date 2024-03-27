@@ -1,6 +1,6 @@
 {
     "name": "await-resolver",
-    "version": "1.1.1",
+    "version": "1.2.0",
     "description": "An easy-to-use **async/await wrapper** to resolve any asynchronous tasks. Await-resolver always returns an array of type `[error, result]` **ensuring consistent error handling** and it provides **a timeout functionality to delay/timeout an execution**. With await-resolver you don't have to use try/catch blocks or callbacks.",
     "main": "index.js",
     "exports": {
