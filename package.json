@@ -37,7 +37,7 @@
     "author": "Kossi D. T. Saka",
     "license": "MIT",
     "devDependencies": {
-        "jest": "^28.1.0"
+        "jest": "^29.7.0"
     },
     "jest": {
         "testMatch": [
