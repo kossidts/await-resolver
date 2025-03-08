@@ -1,3 +1,22 @@
+/**
+ * @template T
+ * @typedef {[Error | null, T | null]} ResolverResult
+ */
+
+/**
+ * @template T
+ * @typedef {T | PromiseLike<T> | ((...args: any[]) => T | PromiseLike<T>)} ResolverInput
+ */
+
+/**
+ * Resolves a value, function, or promise with optional timeout and parameters
+ *
+ * @template T
+ * @param {ResolverInput<T>} item - The value, promise or function to resolve
+ * @param {number | null} [timeout] - Optional timeout in milliseconds
+ * @param {...any} params - Optional parameters to pass to the function
+ * @returns {Promise<ResolverResult<T>>} Returns a promise that resolves to [error, result]
+ */
 const resolver = (item, timeout, ...params) => {
     if (typeof timeout != "number" || timeout < 0) {
         timeout = null;
@@ -53,6 +72,12 @@ const resolver = (item, timeout, ...params) => {
     return promisedItem.then(result => [null, result]).catch(err => [err, null]);
 };
 
+/**
+ * Delays execution for the specified number of milliseconds
+ *
+ * @param {number} ms - The number of milliseconds to sleep
+ * @returns {Promise<[Error|null, undefined]>} A promise that resolves after the specified delay
+ */
 resolver.sleep = ms => resolver(null, ms);
 
 module.exports = resolver;
