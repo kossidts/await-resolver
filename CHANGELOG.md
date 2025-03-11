@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.2] - 2025-03-11
+
+### Added
+
+-   Type declarations fixing typesafety especially when using this package in typescript environment
+
+## [2.0.1] - 2025-03-08
+
+### Added
+
+-   Jsdoc Types
+
 ## [2.0.0] - 2024-03-27
 
 ### Added
