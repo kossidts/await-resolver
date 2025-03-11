@@ -1,6 +1,6 @@
 /**
  * @template T
- * @typedef {[Error | null, T | null]} ResolverResult
+ * @typedef {[Error, null] | [null, T]} ResolverResult
  */
 
 /**
@@ -15,7 +15,7 @@
  * @param {ResolverInput<T>} item - The value, promise or function to resolve
  * @param {number | null} [timeout] - Optional timeout in milliseconds
  * @param {...any} params - Optional parameters to pass to the function
- * @returns {Promise<ResolverResult<T>>} Returns a promise that resolves to [error, result]
+ * @returns {Promise<[Error, null] | [null, T]>} Returns a promise that resolves to either [error, null] or [null, result]
  */
 const resolver = (item, timeout, ...params) => {
     if (typeof timeout != "number" || timeout < 0) {
@@ -23,7 +23,7 @@ const resolver = (item, timeout, ...params) => {
     }
 
     if (item instanceof Promise && timeout == null) {
-        return item.then(result => [null, result]).catch(err => [err, null]);
+        return /** @type {Promise<[Error, null] | [null, T]>} */ (item.then(result => [null, result]).catch(err => [err, null]));
     }
 
     let promisedItem = new Promise((resolve, reject) => {
@@ -69,14 +69,14 @@ const resolver = (item, timeout, ...params) => {
         }
     });
 
-    return promisedItem.then(result => [null, result]).catch(err => [err, null]);
+    return /** @type {Promise<[Error, null] | [null, T]>} */ (promisedItem.then(result => [null, result]).catch(err => [err, null]));
 };
 
 /**
  * Delays execution for the specified number of milliseconds
  *
  * @param {number} ms - The number of milliseconds to sleep
- * @returns {Promise<[Error|null, undefined]>} A promise that resolves after the specified delay
+ * @returns {Promise<[Error | null, null]>} A promise that resolves after the specified delay
  */
 resolver.sleep = ms => resolver(null, ms);
 

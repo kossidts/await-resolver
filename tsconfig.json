@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "target": "ES2018",
+        "module": "NodeNext",
+        "allowJs": true,
+        "declaration": true,
+        "emitDeclarationOnly": true,
+        "outDir": "types",
+        "strict": true,
+        "moduleResolution": "NodeNext",
+        "checkJs": true,
+        "maxNodeModuleJsDepth": 1
+    },
+    "include": ["index.js", "wrapper.mjs"]
+}
